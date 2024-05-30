@@ -9,22 +9,32 @@
       console.log('openCamera called'); // Debugging log
       navigator.mediaDevices.getUserMedia({ video: true })
         .then((stream) => {
-          console.log('Camera accessed'); // Debugging log
-          window.ReactNativeWebView.postMessage('cameraOpened');
-          
+          console.log('Camera accessed', stream); // Debugging log
+          if (window.ReactNativeWebView && window.ReactNativeWebView.postMessage) {
+            window.ReactNativeWebView.postMessage('cameraOpened');
+          } else {
+            console.log('cameraOpened'); // Fallback for non-WebView environments
+          }
+
           // Do something with the video stream
-          const video = document.querySelector('#video');
+          const video = document.querySelector('video');
           if ('srcObject' in video) {
             video.srcObject = stream;
           } else {
             // Older browsers
             video.src = window.URL.createObjectURL(stream);
           }
-          video.play();
+          video.onloadedmetadata = () => {
+            video.play();
+          };
         })
         .catch((error) => {
           console.error('Error accessing camera:', error); // Debugging log
-          window.ReactNativeWebView.postMessage('cameraError: ' + error.message);
+          if (window.ReactNativeWebView && window.ReactNativeWebView.postMessage) {
+            window.ReactNativeWebView.postMessage('cameraError: ' + error.message);
+          } else {
+            console.error('cameraError: ' + error.message); // Fallback for non-WebView environments
+          }
         });
     }
 
