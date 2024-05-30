@@ -6,8 +6,10 @@
   <title>Camera Access</title>
   <script>
     function openCamera() {
-      navigator.mediaDevices.getUserMedia({ video: true })
+        console.log('openCamera called'); // Debugging log
+        navigator.mediaDevices.getUserMedia({ video: true })
         .then((stream) => {
+           console.log('Camera accessed'); // Debugging log
           // Send a message to the React Native app when the camera is accessed successfully
           window.ReactNativeWebView.postMessage('cameraOpened');
           // Do something with the video stream
@@ -16,6 +18,7 @@
         })
         .catch((error) => {
           // Send an error message to the React Native app if there's an issue
+          console.error('Error accessing camera:', error); // Debugging log
           window.ReactNativeWebView.postMessage('cameraError: ' + error.message);
         });
     }
