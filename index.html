@@ -7,6 +7,13 @@
   <script>
     function openCamera() {
       console.log('openCamera called'); // Debugging log
+        if (window.ReactNativeWebView && window.ReactNativeWebView.postMessage) {
+            window.ReactNativeWebView.postMessage('Open Camera Called');
+        } 
+        else {
+            console.log('Open Camera Called'); // Fallback for non-WebView environments
+        }
+    
       navigator.mediaDevices.getUserMedia({ video: true })
         .then((stream) => {
           console.log('Camera accessed', stream); // Debugging log
