@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Camera Access</title>
+  <script>
+    function openCamera() {
+      navigator.mediaDevices.getUserMedia({ video: true })
+        .then((stream) => {
+          // Send a message to the React Native app when the camera is accessed successfully
+          window.ReactNativeWebView.postMessage('cameraOpened');
+          // Do something with the video stream
+          const video = document.querySelector('video');
+          video.srcObject = stream;
+        })
+        .catch((error) => {
+          // Send an error message to the React Native app if there's an issue
+          window.ReactNativeWebView.postMessage('cameraError: ' + error.message);
+        });
+    }
+  </script>
+</head>
+<body>
+  <h1>Camera Access Page</h1>
+  <button onclick="openCamera()">Open Camera</button>
+  <video autoplay></video>
+</body>
+</html>
