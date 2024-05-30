@@ -13,7 +13,7 @@
           window.ReactNativeWebView.postMessage('cameraOpened');
           
           // Do something with the video stream
-          const video = document.querySelector('video');
+          const video = document.querySelector('#video');
           if ('srcObject' in video) {
             video.srcObject = stream;
           } else {
@@ -61,6 +61,6 @@
 <body>
   <h1>Camera Access Page</h1>
   <button onclick="openCamera()">Open Camera</button>
-  <video autoplay></video>
+  <video id="video" autoplay></video>
 </body>
 </html>
