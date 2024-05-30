@@ -45,6 +45,37 @@
         });
     }
 
+    function openFilePicker() {
+      console.log('openFilePicker called'); // Debugging log
+      if (window.ReactNativeWebView && window.ReactNativeWebView.postMessage) {
+            window.ReactNativeWebView.postMessage('Open File Called');
+      } 
+      else {
+            console.log('Open File Called'); // Fallback for non-WebView environments
+      }
+      const input = document.createElement('input');
+      input.type = 'file';
+      input.onchange = (event) => {
+        const file = event.target.files[0];
+        if (file) {
+          console.log('File selected:', file); // Debugging log
+          if (window.ReactNativeWebView && window.ReactNativeWebView.postMessage) {
+            window.ReactNativeWebView.postMessage('fileSelected: ' + file.name);
+          } else {
+            console.log('fileSelected: ' + file.name); // Fallback for non-WebView environments
+          }
+        } else {
+          console.error('No file selected'); // Debugging log
+          if (window.ReactNativeWebView && window.ReactNativeWebView.postMessage) {
+            window.ReactNativeWebView.postMessage('fileError: No file selected');
+          } else {
+            console.error('fileError: No file selected'); // Fallback for non-WebView environments
+          }
+        }
+      };
+      input.click();
+    }
+
   </script>
     <style>
         body {
@@ -77,7 +108,7 @@
 </head>
 <body>
   <h1>Camera Access Page</h1>
-  <button onclick="openCamera()">Open Camera</button>
+  <button onclick="openFilePicker()">Open File Picker</button>
   <video id="video" autoplay></video>
 </body>
 </html>
