@@ -1,75 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>File Access</title>
-  <script>
-    
-    function openFilePicker() {
-      console.log('openFilePicker called'); // Debugging log
-      if (window.ReactNativeWebView && window.ReactNativeWebView.postMessage) {
-            window.ReactNativeWebView.postMessage('Open File Called');
-      } 
-      else {
-            console.log('Open File Called'); // Fallback for non-WebView environments
-      }
-      const input = document.createElement('input');
-      input.type = 'file';
-      input.accept="image/*;capture=camera";
-      input.onchange = (event) => {
-        const file = event.target.files[0];
-        if (file) {
-          console.log('File selected:', file); // Debugging log
-          if (window.ReactNativeWebView && window.ReactNativeWebView.postMessage) {
-            window.ReactNativeWebView.postMessage('fileSelected: ' + file.name);
-          } else {
-            console.log('fileSelected: ' + file.name); // Fallback for non-WebView environments
-          }
-        } else {
-          console.error('No file selected'); // Debugging log
-          if (window.ReactNativeWebView && window.ReactNativeWebView.postMessage) {
-            window.ReactNativeWebView.postMessage('fileError: No file selected');
-          } else {
-            console.error('fileError: No file selected'); // Fallback for non-WebView environments
-          }
-        }
-      };
-      input.click();
-    }
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>File Access</title>
+        <script>
+            function openFilePicker() {
+            console.log('openFilePicker called'); // Debugging log
+            if (window.ReactNativeWebView && window.ReactNativeWebView.postMessage) {
+                    window.ReactNativeWebView.postMessage('Open File Called');
+            } 
+            else {
+                    console.log('Open File Called'); // Fallback for non-WebView environments
+            }
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept="image/*;capture=camera";
+            input.onchange = (event) => {
+                const file = event.target.files[0];
+                if (file) {
+                console.log('File selected:', file); // Debugging log
+                if (window.ReactNativeWebView && window.ReactNativeWebView.postMessage) {
+                    window.ReactNativeWebView.postMessage('fileSelected: ' + file.name);
+                } else {
+                    console.log('fileSelected: ' + file.name); // Fallback for non-WebView environments
+                }
+                } else {
+                console.error('No file selected'); // Debugging log
+                if (window.ReactNativeWebView && window.ReactNativeWebView.postMessage) {
+                    window.ReactNativeWebView.postMessage('fileError: No file selected');
+                } else {
+                    console.error('fileError: No file selected'); // Fallback for non-WebView environments
+                }
+                }
+            };
+            input.click();
+            }
 
-  </script>
-    <style>
-        body {
-          font-family: Arial, sans-serif;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          height: 100vh;
-          margin: 0;
-          background-color: #f0f0f0;
-        }
-        h1 {
-          margin-bottom: 20px;
-        }
-        button {
-          margin-bottom: 20px;
-          padding: 10px 20px;
-          font-size: 16px;
-          cursor: pointer;
-        }
-        video {
-          width: 100%;
-          max-width: 600px;
-          border: 1px solid #ccc;
-          background: #000;
-        }
-    </style>
-    
-</head>
-<body>
-  <h1>Access Page</h1>
-  <button onclick="openFilePicker()">Open File Picker</button>
-</body>
+        </script>
+        <style>
+            body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            }
+            h1 {
+            margin-bottom: 20px;
+            }
+            button {
+            margin-bottom: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            }
+            video {
+            width: 100%;
+            max-width: 600px;
+            border: 1px solid #ccc;
+            background: #000;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Access Page</h1>
+        <button onclick="openFilePicker()">Open File Picker</button>
+    </body>
 </html>
